@@ -6,7 +6,7 @@ export const SCENES: Scene[] = [
     slug: 'the-first-spark',
     title: 'The First Spark',
     subtitle: 'From a blank screen to the first line of code',
-    duration: 25,
+    duration: 16,
     voiceover:
       'Every digital experience begins somewhere. With an idea. A problem waiting to be solved. And a few instructions that tell a machine what to do.',
     onScreenText: ['AN IDEA.', 'A FEW INSTRUCTIONS.', 'A WORLD OF POSSIBILITIES.'],
@@ -22,7 +22,7 @@ export const SCENES: Scene[] = [
     slug: 'digital-universe-logos',
     title: 'The Digital Universe',
     subtitle: 'Logos emerge from the center and slide into a living constellation',
-    duration: 38,
+    duration: 20,
     voiceover:
       'Think about the things you use every day. Your bank. Your school. Instagram, Facebook, X. Different services. Different purposes. Yet behind these digital experiences lies something they all depend on: software.',
     onScreenText: ['BANKING.', 'EDUCATION.', 'SOCIAL CONNECTION.', 'SOFTWARE.'],
@@ -38,9 +38,9 @@ export const SCENES: Scene[] = [
     slug: 'what-is-software',
     title: 'What is Software?',
     subtitle: 'Turning human ideas into tools that solve real problems',
-    duration: 32,
+    duration: 18,
     voiceover:
-      'So, what exactly is software? Software is simply a collection of instructions that tells a computer or device how to perform tasks. It can calculate a result, play a song, manage a classroom, or process a payment. Software is how we turn human ideas into tools that people can actually use.',
+      'So, what exactly is software? Software is simply a collection of instructions that tells a computer or device how to perform tasks. It can calculate a result, play a song, manage a classroom, or process a payment.',
     onScreenText: ['SOFTWARE', '=', 'INSTRUCTIONS', '+', 'LOGIC', '+', 'PURPOSE'],
     visualDirection:
       'Camera zooms into an elegant 3D holographic circuit board. Pulses of electric gold and cyan light travel through logic gates. The microprocessor morphs into a calculator, a streaming music player, a student grading dashboard, and a secure checkout counter. Floating holographic UI panels orbit the processor.',
@@ -54,9 +54,9 @@ export const SCENES: Scene[] = [
     slug: 'three-digital-forms',
     title: 'Website, Web App, or Mobile App?',
     subtitle: 'Understanding the 3 primary forms of digital experiences',
-    duration: 40,
+    duration: 22,
     voiceover:
-      'A website is a collection of pages you visit in a browser to learn and explore. A web application goes further, letting you do real work directly inside the browser—like banking, managing a classroom, or booking a trip. A mobile application lives on your phone, taking advantage of cameras, sensors, and instant notifications. Different forms, same power: solving problems with code.',
+      'A website is a collection of pages you visit in a browser to learn and explore. A web application goes further, letting you do real work directly inside the browser. A mobile application lives on your phone, taking advantage of cameras, sensors, and instant notifications.',
     onScreenText: [
       'WEBSITE — INFORM & CONNECT',
       'WEB APP — INTERACT & WORK',
@@ -74,9 +74,9 @@ export const SCENES: Scene[] = [
     slug: 'how-a-website-works',
     title: 'How Does a Website Work?',
     subtitle: 'The millisecond journey across the global internet',
-    duration: 36,
+    duration: 20,
     voiceover:
-      'When you type a website address, your browser asks the Domain Name System, or DNS, where to find it. A request travels through undersea cables and satellite links to a server. The server replies in milliseconds with three building blocks: HTML for structure, CSS for visual design, and JavaScript for interactivity.',
+      'When you type a website address, your browser asks the Domain Name System where to find it. A request travels across the network to a server. The server replies in milliseconds with three building blocks: HTML for structure, CSS for visual design, and JavaScript for interactivity.',
     onScreenText: ['URL → DNS → SERVER → RESPONSE', 'HTML (STRUCTURE)', 'CSS (DESIGN)', 'JS (INTERACTION)'],
     visualDirection:
       'A browser address bar types "my-website.com". A glowing laser packet shoots into an orbital 3D wireframe globe, down into undersea glowing fiber cables, arriving at a hyper-modern server rack room. The server lights flash gold, emitting response packets. On return, the webpage assembles in 3 distinct layers: a wireframe skeleton (HTML), vibrant colors and typography (CSS), and live animated buttons (JavaScript).',
@@ -90,9 +90,9 @@ export const SCENES: Scene[] = [
     slug: 'why-build-a-website',
     title: 'Why Should You Build a Website?',
     subtitle: 'Tailored for Teachers, Students, and Professionals',
-    duration: 38,
+    duration: 20,
     voiceover:
-      'For teachers: a website is your classroom companion—sharing lesson notes, homework, and notices beyond school hours. For students: it is your personal portfolio—showing colleges and employers what you can actually build. For professionals and freelancers: it is your 24/7 digital storefront, building credibility while you sleep.',
+      'For teachers: a classroom companion. For students: your personal proof-of-work portfolio. For professionals and freelancers: your twenty-four seven digital storefront. One skill, infinite possibilities.',
     onScreenText: [
       'TEACHERS: DIGITAL CLASSROOM',
       'STUDENTS: PROOF-OF-WORK PORTFOLIO',
@@ -110,9 +110,9 @@ export const SCENES: Scene[] = [
     slug: 'development-environment',
     title: 'Behind the Scenes: Live Coding',
     subtitle: 'Terminals, packages, and instant browser synchronization',
-    duration: 48,
+    duration: 24,
     voiceover:
-      'Now let’s look under the hood. Developers use command line tools and package managers like npm to bring in pre-built building blocks. With a single command, thousands of lines of tested code are installed in seconds. When you edit a line of code in your editor, your browser updates instantly right before your eyes.',
+      'Now let’s look under the hood. Developers use command line tools and npm to bring in ready-made building blocks. With one command, packages install in seconds. When you edit a line of code in your editor, your browser updates instantly.',
     onScreenText: ['NPM CREATE VITE@LATEST', 'NPM INSTALL', 'LIVE HOT RELOAD', 'CODE TURNS INTO REALITY'],
     visualDirection:
       'Full-screen VS Code editor and dark terminal. Real commands type out: `npm create vite@latest my-site`, `cd my-site`, `npm install`. A flurry of real packages stream down the terminal with green checkmarks. The project folder tree branches out in 3D. In the editor, lines of code are written: changing `<h1>Welcome</h1>` to `<h1>Hello World</h1>` and modifying a CSS color. The adjacent preview browser window refreshes instantly with a ripple effect!',
@@ -126,9 +126,9 @@ export const SCENES: Scene[] = [
     slug: 'languages-behind-magic',
     title: 'The Languages Behind the Magic',
     subtitle: 'From frontend styling to backend APIs and databases',
-    duration: 35,
+    duration: 18,
     voiceover:
-      'There isn’t just one programming language, and you don’t need to learn them all at once. HTML, CSS, and JavaScript build what users see. TypeScript brings confidence and structure. Python and C# power backend logic and APIs. And SQL stores the data. Different tools for different jobs, working in harmony.',
+      'There isn’t just one programming language. HTML, CSS, and JavaScript build what you see. TypeScript brings confidence and structure. Python and C-sharp power backend logic. And SQL stores the data. Different tools working in harmony.',
     onScreenText: ['HTML5 + CSS3 + JS', 'TYPESCRIPT', 'PYTHON + C#', 'SQL DATABASES'],
     visualDirection:
       'A floating 3D architecture diagram. Orbiting language badges (HTML5 orange shield, CSS3 blue badge, JavaScript yellow JS, TypeScript blue TS, Python yellow-blue snakes, C# purple diamond, SQL cylinder database) glow and emit data streams connecting a frontend web interface, through a REST API pipeline, into a relational database.',
@@ -142,9 +142,9 @@ export const SCENES: Scene[] = [
     slug: 'cyber-security',
     title: 'Cybersecurity: Build It, Protect It',
     subtitle: 'Securing users, passwords, and sensitive information',
-    duration: 38,
+    duration: 20,
     voiceover:
-      'Building is only half the story. A website handles passwords, student records, and payments. If it isn’t protected, attacks can happen. Cybersecurity isn’t an afterthought—it is built into every line: strong passwords, two-factor authentication, encrypted HTTPS connections, and safe databases.',
+      'Building is only half the story. A website handles passwords, accounts, and private data. Cybersecurity protects it from day one: strong passwords, two-factor authentication, and encrypted HTTPS connections.',
     onScreenText: ['PROTECT BY DESIGN', 'TWO-FACTOR AUTH', 'HTTPS / SSL ENCRYPTED', 'INPUT SANITIZATION'],
     visualDirection:
       'A server cube floats surrounded by incoming red digital threat darts. A multi-layered hexagonal energy shield activates with a resounding hum, vaporizing the threats. A password field morphs from "123456" (red weak) to "Tr0ng#K3y!99" (green 100% secure). A phone mock displays an SMS 2FA notification approved with a green checkmark. A golden HTTPS padlock locks firmly into place.',
@@ -158,9 +158,9 @@ export const SCENES: Scene[] = [
     slug: 'website-goes-live',
     title: 'The Website Goes Live!',
     subtitle: '"This website didn\'t exist 60 seconds ago."',
-    duration: 42,
+    duration: 22,
     voiceover:
-      'And then, the moment that changes everything. With one click, your code is compiled, deployed to the cloud, and assigned a live HTTPS link. You pull out your phone, scan the QR code, and there it is—live on the global internet for anyone in the world to see.',
+      'And then, the moment that changes everything: "This website didn’t exist 60 seconds ago." Deployed to the cloud, live with an HTTPS link. Scan the QR code, and open it on your phone right now.',
     onScreenText: ['BUILDING...', 'DEPLOYED TO CLOUD', 'LIVE HTTPS URL', 'SCAN TO VIEW ON MOBILE'],
     visualDirection:
       'A deployment progress bar hits 100% with a burst of golden particle fireworks. A live URL flashes: `https://my-site.run.app`. A dynamic QR code expands in the center. Next to it, a 3D smartphone scans the QR code and opens the exact live website! The camera rotates 360 degrees showing both laptop and phone in an inspirational studio setting.',
@@ -174,9 +174,9 @@ export const SCENES: Scene[] = [
     slug: 'your-turn',
     title: 'Now It’s Your Turn',
     subtitle: 'Your 5-stage project path to your own live website',
-    duration: 35,
+    duration: 18,
     voiceover:
-      'You don’t need a computer science degree to start. You don’t need to memorize hundreds of commands. All you need is curiosity and a step-by-step roadmap. In this course, you will plan, design, code, secure, and publish your own website with a real link to share with family, friends, or clients.',
+      'You don’t need to be an expert to start. In this course, you will plan, build, design, secure, and publish your own website with a real link to share with anyone.',
     onScreenText: ['1. PLAN', '2. BUILD', '3. DESIGN', '4. SECURE', '5. PUBLISH LIVE'],
     visualDirection:
       'A glowing interactive 5-step roadmap unfolds across the screen like illuminated digital stepping stones. Each milestone lights up in succession: 1. Idea & Purpose, 2. HTML & Code Blocks, 3. Responsive Styling, 4. Security & Forms, 5. Going Live on the Cloud. An inspiring human-centric graphic shows a user reaching out and starting stage 1.',
@@ -190,9 +190,9 @@ export const SCENES: Scene[] = [
     slug: 'final-title-reveal',
     title: 'Your Website, Live Today',
     subtitle: 'Let’s build something real together',
-    duration: 26,
+    duration: 16,
     voiceover:
-      'Welcome to the beginning of your software journey. Don’t just watch others build the future. Build it yourself. Your website, live today. Let’s get started.',
+      'Welcome to the beginning of your journey. Your website, live today. Learn. Build. Publish. Let’s get started.',
     onScreenText: ['YOUR WEBSITE, LIVE TODAY', 'LEARN. BUILD. PUBLISH.', 'ENROLL NOW'],
     visualDirection:
       'The background fades to velvet midnight navy. A laser beam of electric cyan draws the headline: "YOUR WEBSITE, LIVE TODAY" in bold kinetic typography with a golden rim light. The glowing devices (laptop, tablet, phone) sit proudly beneath it. A pulsing "START BUILDING" button glows warmly.',

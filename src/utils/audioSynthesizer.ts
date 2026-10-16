@@ -1,6 +1,7 @@
 /**
  * Real Web Audio API cinematic sound engine and Web Speech API narrator.
  * Zero external audio dependencies; synthesizes movie-grade audio directly.
+ * Equipped with MediaStream destination for recording / MediaRecorder export.
  */
 
 class SoundEngine {
@@ -8,16 +9,43 @@ class SoundEngine {
   private isMuted: boolean = false;
   private ambientOsc: OscillatorNode | null = null;
   private ambientGain: GainNode | null = null;
+  private mediaDest: MediaStreamAudioDestinationNode | null = null;
 
-  private initContext() {
+  public initContext() {
     if (!this.ctx && typeof window !== 'undefined') {
       const AudioCtx = window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
       if (AudioCtx) {
         this.ctx = new AudioCtx();
+        try {
+          this.mediaDest = this.ctx.createMediaStreamDestination();
+        } catch {
+          // Fallback if media destination not supported
+        }
       }
     }
     if (this.ctx && this.ctx.state === 'suspended') {
       this.ctx.resume();
+    }
+  }
+
+  /**
+   * Returns a MediaStream of the synthesized audio for MediaRecorder!
+   */
+  public getAudioStream(): MediaStream | null {
+    this.initContext();
+    return this.mediaDest ? this.mediaDest.stream : null;
+  }
+
+  private connectToOutputs(node: AudioNode) {
+    if (this.ctx) {
+      node.connect(this.ctx.destination);
+      if (this.mediaDest) {
+        try {
+          node.connect(this.mediaDest);
+        } catch {
+          // ignore
+        }
+      }
     }
   }
 
@@ -52,7 +80,7 @@ class SoundEngine {
 
       this.ambientOsc.connect(filter);
       filter.connect(this.ambientGain);
-      this.ambientGain.connect(this.ctx.destination);
+      this.connectToOutputs(this.ambientGain);
 
       this.ambientOsc.start();
     } catch {
@@ -94,7 +122,7 @@ class SoundEngine {
       gain.gain.exponentialRampToValueAtTime(0.001, now + 1.5);
 
       osc.connect(gain);
-      gain.connect(this.ctx.destination);
+      this.connectToOutputs(gain);
 
       osc.start(now);
       osc.stop(now + 1.5);
@@ -131,7 +159,7 @@ class SoundEngine {
 
       osc.connect(filter);
       filter.connect(gain);
-      gain.connect(this.ctx.destination);
+      this.connectToOutputs(gain);
 
       osc.start(now);
       osc.stop(now + 0.35);
@@ -160,7 +188,7 @@ class SoundEngine {
       gain.gain.exponentialRampToValueAtTime(0.001, now + 0.04);
 
       osc.connect(gain);
-      gain.connect(this.ctx.destination);
+      this.connectToOutputs(gain);
 
       osc.start(now);
       osc.stop(now + 0.04);
@@ -191,7 +219,7 @@ class SoundEngine {
       gain.gain.exponentialRampToValueAtTime(0.001, now + 0.8);
 
       osc.connect(gain);
-      gain.connect(this.ctx.destination);
+      this.connectToOutputs(gain);
 
       osc.start(now);
       osc.stop(now + 0.8);
@@ -224,7 +252,7 @@ class SoundEngine {
         gain.gain.exponentialRampToValueAtTime(0.001, startTime + 1.2);
 
         osc.connect(gain);
-        gain.connect(this.ctx!.destination);
+        this.connectToOutputs(gain);
 
         osc.start(startTime);
         osc.stop(startTime + 1.2);
@@ -238,12 +266,13 @@ class SoundEngine {
 export const soundEngine = new SoundEngine();
 
 /**
- * Speech synthesis narrator wrapper.
+ * Speech synthesis narrator engine with explicit female voice preference & selector.
  */
 class NarratorEngine {
   private isSpeaking: boolean = false;
   private currentUtterance: SpeechSynthesisUtterance | null = null;
   private selectedVoice: SpeechSynthesisVoice | null = null;
+  private gender: 'female' | 'male' = 'female';
 
   constructor() {
     if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
@@ -252,24 +281,79 @@ class NarratorEngine {
     }
   }
 
+  public setGender(gender: 'female' | 'male') {
+    this.gender = gender;
+    this.updateVoices();
+  }
+
+  public getGender(): 'female' | 'male' {
+    return this.gender;
+  }
+
+  private isFemaleVoice(name: string): boolean {
+    const n = name.toLowerCase();
+    return (
+      n.includes('female') ||
+      n.includes('samantha') ||
+      n.includes('victoria') ||
+      n.includes('karen') ||
+      n.includes('zira') ||
+      n.includes('fiona') ||
+      n.includes('moira') ||
+      n.includes('tessa') ||
+      n.includes('serena') ||
+      n.includes('agnes') ||
+      n.includes('allison') ||
+      n.includes('ava') ||
+      n.includes('kate') ||
+      n.includes('susan') ||
+      n.includes('stephanie') ||
+      n.includes('jenny') ||
+      n.includes('aria') ||
+      n.includes('emma') ||
+      n.includes('sonia') ||
+      n.includes('natural')
+    );
+  }
+
   private updateVoices() {
     if (typeof window === 'undefined' || !('speechSynthesis' in window)) return;
     const voices = window.speechSynthesis.getVoices();
-    // Prefer English voices like Google US English, Samantha, Daniel, Natural English
-    const preferred = voices.find(
-      (v) =>
-        (v.name.includes('Natural') || v.name.includes('Google') || v.name.includes('Premium')) &&
-        v.lang.startsWith('en')
-    ) || voices.find((v) => v.lang.startsWith('en'));
+    if (voices.length === 0) return;
 
-    if (preferred) {
-      this.selectedVoice = preferred;
+    const enVoices = voices.filter((v) => v.lang.startsWith('en'));
+
+    if (this.gender === 'female') {
+      const preferred =
+        enVoices.find((v) => this.isFemaleVoice(v.name)) ||
+        enVoices.find((v) => v.name.includes('Google') || v.name.includes('Natural')) ||
+        enVoices[0];
+      if (preferred) this.selectedVoice = preferred;
+    } else {
+      const preferred =
+        enVoices.find((v) => !this.isFemaleVoice(v.name) && (v.name.includes('David') || v.name.includes('Daniel') || v.name.includes('Guy') || v.name.includes('Male'))) ||
+        enVoices.find((v) => !this.isFemaleVoice(v.name)) ||
+        enVoices[0];
+      if (preferred) this.selectedVoice = preferred;
     }
   }
 
   public getVoices(): SpeechSynthesisVoice[] {
     if (typeof window === 'undefined' || !('speechSynthesis' in window)) return [];
     return window.speechSynthesis.getVoices().filter((v) => v.lang.startsWith('en'));
+  }
+
+  public getSelectedVoiceName(): string {
+    return this.selectedVoice ? this.selectedVoice.name : 'Default Female Voice';
+  }
+
+  public setVoiceByName(voiceName: string) {
+    const voices = this.getVoices();
+    const found = voices.find((v) => v.name === voiceName);
+    if (found) {
+      this.selectedVoice = found;
+      this.gender = this.isFemaleVoice(found.name) ? 'female' : 'male';
+    }
   }
 
   public setVoice(voice: SpeechSynthesisVoice) {
@@ -288,9 +372,10 @@ class NarratorEngine {
     if (this.selectedVoice) {
       utterance.voice = this.selectedVoice;
     }
-    utterance.rate = Math.min(Math.max(rate, 0.8), 1.5);
-    utterance.pitch = 1.0;
-    utterance.volume = 0.95;
+    utterance.rate = Math.min(Math.max(rate, 0.8), 1.4);
+    // Set pitch higher for feminine, crystal-clear narration
+    utterance.pitch = this.gender === 'female' ? 1.15 : 0.95;
+    utterance.volume = 1.0;
 
     utterance.onend = () => {
       this.isSpeaking = false;

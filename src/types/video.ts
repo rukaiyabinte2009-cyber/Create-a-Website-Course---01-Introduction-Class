@@ -23,6 +23,11 @@ export interface PlaybackState {
   soundEffectsEnabled: boolean;
   subtitlesEnabled: boolean;
   isFullscreen: boolean;
+  voiceGender: 'female' | 'male';
+  selectedVoiceName: string;
+  timingPreset: 'cinematic' | 'detailed' | 'custom';
+  isExporting: boolean;
+  exportProgress: number;
 }
 
 export type AppTab = 'video' | 'studio' | 'demo';

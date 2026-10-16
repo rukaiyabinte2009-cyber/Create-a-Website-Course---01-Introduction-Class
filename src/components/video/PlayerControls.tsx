@@ -226,15 +226,15 @@ export const PlayerControls: React.FC<PlayerControlsProps> = ({
           {onExportVideo && (
             <button
               onClick={onExportVideo}
-              className={`px-3 py-2 rounded-xl border text-xs font-mono font-bold flex items-center gap-1.5 transition-all ${
+              className={`px-3.5 py-2 rounded-xl border text-xs font-mono font-bold flex items-center gap-1.5 transition-all shadow-md ${
                 isRecording
                   ? 'bg-red-500/20 border-red-500 text-red-300 animate-pulse'
-                  : 'bg-emerald-500/20 border-emerald-500/50 text-emerald-300 hover:bg-emerald-500/30'
+                  : 'bg-gradient-to-r from-cyan-500 to-blue-600 text-black hover:brightness-110 shadow-[0_0_15px_rgba(6,182,212,0.3)]'
               }`}
-              title="Record and download this video as a file"
+              title="Export and download as MP4 video with audio & subtitles"
             >
               <Download className="w-3.5 h-3.5" />
-              <span className="hidden sm:inline">{isRecording ? 'RECORDING...' : 'EXPORT VIDEO'}</span>
+              <span>{isRecording ? 'RECORDING MP4...' : 'EXPORT MP4'}</span>
             </button>
           )}
         </div>

@@ -16,12 +16,12 @@ const mockScenes: Scene[] = [
     slug: 'scene-1',
     title: 'The First Spark',
     subtitle: 'A single blinking cursor',
-    duration: 20,
+    duration: 16,
     voiceover: 'Every digital experience begins somewhere.',
     onScreenText: ['AN IDEA.', 'A FEW INSTRUCTIONS.'],
     visualDirection: 'Black screen, cursor blinks, spark forms.',
     soundCues: ['Electronic hum', 'Bass drop'],
-    techTags: ['Syntax', 'Node'],
+    techTags: ['Terminal', 'Code Spark'],
     aiPromptSnippet: 'Cinematic black screen with cyan blinking cursor.'
   },
   {
@@ -29,7 +29,7 @@ const mockScenes: Scene[] = [
     slug: 'scene-2',
     title: 'The Digital Universe',
     subtitle: 'Logos emerge and slide',
-    duration: 40,
+    duration: 20,
     voiceover: 'Think about the things you use every day.',
     onScreenText: ['BANKING.', 'EDUCATION.', 'SOFTWARE.'],
     visualDirection: 'Central sphere, logos pop up and slide left and right.',
@@ -42,7 +42,7 @@ const mockScenes: Scene[] = [
     slug: 'scene-3',
     title: 'What is Software?',
     subtitle: 'Logic and instructions',
-    duration: 30,
+    duration: 18,
     voiceover: 'Software is a collection of instructions.',
     onScreenText: ['LOGIC.', 'PURPOSE.'],
     visualDirection: 'Circuit board transforming into apps.',
@@ -55,37 +55,38 @@ const mockScenes: Scene[] = [
 test('calculateSceneTimings computes correct cumulative bounds', () => {
   const timings = calculateSceneTimings(mockScenes);
   assert.equal(timings.length, 3);
-  assert.deepEqual(timings[0], { sceneId: 1, startTime: 0, endTime: 20, duration: 20 });
-  assert.deepEqual(timings[1], { sceneId: 2, startTime: 20, endTime: 60, duration: 40 });
-  assert.deepEqual(timings[2], { sceneId: 3, startTime: 60, endTime: 90, duration: 30 });
+  assert.deepEqual(timings[0], { sceneId: 1, startTime: 0, endTime: 16, duration: 16 });
+  assert.deepEqual(timings[1], { sceneId: 2, startTime: 16, endTime: 36, duration: 20 });
+  assert.deepEqual(timings[2], { sceneId: 3, startTime: 36, endTime: 54, duration: 18 });
 });
 
 test('getTotalDuration aggregates scene durations accurately', () => {
   const total = getTotalDuration(mockScenes);
-  assert.equal(total, 90);
+  assert.equal(total, 54);
 });
 
 test('getCurrentSceneIndex resolves correct active scene', () => {
   const timings = calculateSceneTimings(mockScenes);
   assert.equal(getCurrentSceneIndex(0, timings), 0);
   assert.equal(getCurrentSceneIndex(10, timings), 0);
-  assert.equal(getCurrentSceneIndex(20, timings), 1);
-  assert.equal(getCurrentSceneIndex(59.9, timings), 1);
-  assert.equal(getCurrentSceneIndex(60, timings), 2);
-  assert.equal(getCurrentSceneIndex(89, timings), 2);
-  assert.equal(getCurrentSceneIndex(120, timings), 2); // clamped to last
+  assert.equal(getCurrentSceneIndex(16, timings), 1);
+  assert.equal(getCurrentSceneIndex(35.9, timings), 1);
+  assert.equal(getCurrentSceneIndex(36, timings), 2);
+  assert.equal(getCurrentSceneIndex(53, timings), 2);
+  assert.equal(getCurrentSceneIndex(100, timings), 2); // clamped to last
 });
 
 test('getSceneProgress computes relative ratio 0.0 to 1.0', () => {
   const timings = calculateSceneTimings(mockScenes);
   assert.equal(getSceneProgress(0, timings[0]), 0);
-  assert.equal(getSceneProgress(10, timings[0]), 0.5);
-  assert.equal(getSceneProgress(20, timings[0]), 1);
+  assert.equal(getSceneProgress(8, timings[0]), 0.5);
+  assert.equal(getSceneProgress(16, timings[0]), 1);
 });
 
 test('formatTime formats minutes and seconds with zero padding', () => {
   assert.equal(formatTime(0), '00:00');
   assert.equal(formatTime(65), '01:05');
+  assert.equal(formatTime(234), '03:54');
   assert.equal(formatTime(420), '07:00');
 });
 
