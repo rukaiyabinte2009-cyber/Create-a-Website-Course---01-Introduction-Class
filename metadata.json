@@ -1,0 +1,6 @@
+{
+  "name": "Build Anything - Cinematic Video & Web Studio",
+  "description": "Cinematic motion-graphics video experience and AI production studio explaining software, web apps, live coding, and cybersecurity.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
